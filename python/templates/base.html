@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bookshare{% endblock %}</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; font-size: 14px; background: #f4f4f4; color: #333; }
+        header { background: #2c3e50; color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 18px; font-weight: 500; }
+        header h1 a { color: white; text-decoration: none; }
+        header .header-right { display: flex; align-items: center; gap: 16px; }
+        header .user-info { font-size: 13px; color: #ccc; }
+        header .admin-btn { font-size: 12px; background: #e74c3c; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; white-space: nowrap; }
+        header .admin-btn:hover { background: #c0392b; }
+        main { padding: 32px 24px; max-width: 960px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="/">Bookshare</a></h1>
+        <div class="header-right">
+            <span class="user-info">
+                {{ session.vorname }} {{ session.nachname }} &nbsp;|&nbsp; {{ session.rolle }}
+            </span>
+            {% if session.nutzer_id != 30 %}
+            <a href="/switch-user/30" class="admin-btn">↩ Als Admin</a>
+            {% endif %}
+        </div>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
