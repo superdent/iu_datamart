@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}{{ buch.titel }} – Bookshare{% endblock %}
+
+{% block content %}
+
+<div style="margin-bottom: 8px;">
+    <a href="/katalog" style="font-size: 13px; color: #888; text-decoration: none;">← Zurück zum Katalog</a>
+</div>
+
+<!-- Buchinfo -->
+<div style="background: white; border: 1px solid #ddd; border-radius: 6px; padding: 24px; margin-bottom: 24px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+            <h2 style="font-size: 20px; margin-bottom: 8px;">{{ buch.titel }}</h2>
+            <div style="font-size: 13px; color: #555; margin-bottom: 4px;">{{ buch.autoren }}</div>
+            <div style="font-size: 13px; color: #888;">{{ buch.genres }}</div>
+        </div>
+        <a href="/katalog/{{ buch.buch_id }}/edit" style="font-size: 13px; color: #2c3e50; text-decoration: none; border: 1px solid #ddd; padding: 6px 12px; border-radius: 4px;">✏️ Bearbeiten</a>
+    </div>
+    <div style="margin-top: 16px; display: flex; gap: 32px; font-size: 13px; color: #888;">
+        <span>Jahr: <strong style="color: #333;">{{ buch.erscheinungsjahr }}</strong></span>
+        <span>Sprache: <strong style="color: #333;">{{ buch.sprache }}</strong></span>
+        <span>ISBN: <strong style="color: #333;">{{ buch.isbn or '–' }}</strong></span>
+        <span>Status:
+            <strong>
+            {% if buch.freigabe_status == 'AKTIV' %}
+                <span style="color: #27ae60;">aktiv</span>
+            {% elif buch.freigabe_status == 'ENTWURF' %}
+                <span style="color: #e67e22;">Entwurf</span>
+            {% elif buch.freigabe_status == 'ABGELEHNT' %}
+                <span style="color: #c0392b;">abgelehnt</span>
+            {% elif buch.freigabe_status == 'GESPERRT' %}
+                <span style="color: #c0392b;">gesperrt</span>
+            {% else %}
+                <span style="color: #888;">–</span>
+            {% endif %}
+            </strong>
+        </span>
+    </div>
+</div>
+
+<!-- Exemplare -->
+<h3 style="font-size: 15px; color: #555; margin-bottom: 16px;">Verfügbare Exemplare</h3>
+
+{% if exemplare %}
+<table style="width: 100%; border-collapse: collapse; background: white; border: 1px solid #ddd; border-radius: 6px; overflow: hidden;">
+    <thead>
+        <tr style="background: #f9f9f9; border-bottom: 1px solid #ddd;">
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Besitzer</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Zustand</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Abholort</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Max. Leihdauer</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Postversand</th>
+            <th style="padding: 10px 14px; text-align: center; font-weight: 500; font-size: 13px; color: #555;">Aktion</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ex in exemplare %}
+        <tr style="border-bottom: 1px solid #f0f0f0;">
+            <td style="padding: 10px 14px; font-size: 13px;">{{ ex.besitzer_vorname }} {{ ex.besitzer_nachname }}</td>
+            <td style="padding: 10px 14px; font-size: 13px;">{{ ex.zustand }}</td>
+            <td style="padding: 10px 14px; font-size: 13px; color: #888;">{{ ex.strasse }} {{ ex.hausnummer }}, {{ ex.plz }} {{ ex.stadt }}</td>
+            <td style="padding: 10px 14px; font-size: 13px; color: #888;">{{ ex.max_leihdauer_tage }} Tage</td>
+            <td style="padding: 10px 14px; font-size: 13px;">
+                {% if ex.postversand_moeglich %}
+                    <span style="color: #27ae60;">ja</span>
+                {% else %}
+                    <span style="color: #888;">nein</span>
+                {% endif %}
+            </td>
+            <td style="padding: 10px 14px; text-align: center;">
+                <a href="/ausleihe/anfrage/{{ ex.exemplar_id }}" style="background: #2c3e50; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 12px;">Anfragen</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p style="font-size: 13px; color: #888;">Keine Exemplare verfügbar.</p>
+{% endif %}
+
+{% endblock %}
