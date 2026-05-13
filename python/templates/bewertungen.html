@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Bewertungen – Bookshare{% endblock %}
+
+{% block content %}
+
+<h2 style="font-size: 17px; margin-bottom: 24px;">Bewertungen</h2>
+
+{% if ausleihen %}
+<table style="width: 100%; border-collapse: collapse; background: white; border: 1px solid #ddd; border-radius: 6px; overflow: hidden;">
+    <thead>
+        <tr style="background: #f9f9f9; border-bottom: 1px solid #ddd;">
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Buch</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Leiher</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Verleiher</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Rückgabe</th>
+            <th style="padding: 10px 14px; text-align: center; font-weight: 500; font-size: 13px; color: #555;">Bewertung</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in ausleihen %}
+        <tr style="border-bottom: 1px solid #f0f0f0;">
+            <td style="padding: 10px 14px; font-size: 13px;">
+                <a href="/katalog/{{ a.buch_id }}" style="color: #2c3e50; text-decoration: none;">{{ a.titel }}</a>
+            </td>
+            <td style="padding: 10px 14px; font-size: 13px; color: #555;">{{ a.leiher_vorname }} {{ a.leiher_nachname }}</td>
+            <td style="padding: 10px 14px; font-size: 13px; color: #555;">{{ a.verleiher_vorname }} {{ a.verleiher_nachname }}</td>
+            <td style="padding: 10px 14px; font-size: 13px; color: #888;">{{ a.tatsaechliches_rueckgabedatum.strftime('%d.%m.%Y') }}</td>
+            <td style="padding: 10px 14px; text-align: center;">
+                {% if a.bereits_bewertet > 0 %}
+                    <span style="font-size: 12px; color: #27ae60;">abgegeben</span>
+                {% else %}
+                    <a href="/bewertungen/ausleihe/{{ a.ausleihe_id }}"
+                       style="background: #2c3e50; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 12px;">
+                        Bewerten
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p style="font-size: 13px; color: #888;">Keine abgeschlossenen Ausleihen vorhanden.</p>
+{% endif %}
+
+{% endblock %}

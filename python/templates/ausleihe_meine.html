@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Meine Ausleihen – Bookshare{% endblock %}
+
+{% block content %}
+
+<h2 style="font-size: 17px; margin-bottom: 24px;">Meine Ausleihen</h2>
+
+<!-- Als Leiher -->
+<h3 style="font-size: 14px; color: #555; margin-bottom: 12px;">Meine Anfragen (ich leihe)</h3>
+
+{% if als_leiher %}
+<table style="width: 100%; border-collapse: collapse; background: white; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; margin-bottom: 32px;">
+    <thead>
+        <tr style="background: #f9f9f9; border-bottom: 1px solid #ddd;">
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Buch</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Verleiher</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Datum</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Status</th>
+            <th style="padding: 10px 14px; text-align: center; font-weight: 500; font-size: 13px; color: #555;">Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in als_leiher %}
+        <tr style="border-bottom: 1px solid #f0f0f0;">
+            <td style="padding: 10px 14px; font-size: 13px;">
+                <a href="/katalog/{{ a.buch_id }}" style="color: #2c3e50; text-decoration: none;">{{ a.titel }}</a>
+            </td>
+            <td style="padding: 10px 14px; font-size: 13px; color: #555;">{{ a.verleiher_vorname }} {{ a.verleiher_nachname }}</td>
+            <td style="padding: 10px 14px; font-size: 13px; color: #888;">{{ a.anfragedatum.strftime('%d.%m.%Y') }}</td>
+            <td style="padding: 10px 14px; font-size: 13px;">
+                {% if a.status == 'OFFEN' %}
+                    <span style="color: #e67e22;">offen</span>
+                {% elif a.status == 'BESTAETIGT' %}
+                    <span style="color: #27ae60;">bestätigt</span>
+                {% elif a.status == 'ABGELEHNT' %}
+                    <span style="color: #c0392b;">abgelehnt</span>
+                {% elif a.status == 'STORNIERT' %}
+                    <span style="color: #888;">storniert</span>
+                {% endif %}
+            </td>
+            <td style="padding: 10px 14px; text-align: center;">
+                <a href="/ausleihe/anfrage/{{ a.anfrage_id }}/detail"
+                   style="font-size: 12px; color: #2c3e50; text-decoration: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 4px;">
+                    Details
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p style="font-size: 13px; color: #888; margin-bottom: 32px;">Keine Anfragen vorhanden.</p>
+{% endif %}
+
+<!-- Als Verleiher -->
+<h3 style="font-size: 14px; color: #555; margin-bottom: 12px;">Anfragen an mich (ich verleihe)</h3>
+
+{% if als_verleiher %}
+<table style="width: 100%; border-collapse: collapse; background: white; border: 1px solid #ddd; border-radius: 6px; overflow: hidden;">
+    <thead>
+        <tr style="background: #f9f9f9; border-bottom: 1px solid #ddd;">
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Buch</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Leiher</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Datum</th>
+            <th style="padding: 10px 14px; text-align: left; font-weight: 500; font-size: 13px; color: #555;">Status</th>
+            <th style="padding: 10px 14px; text-align: center; font-weight: 500; font-size: 13px; color: #555;">Aktion</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in als_verleiher %}
+        <tr style="border-bottom: 1px solid #f0f0f0;">
+            <td style="padding: 10px 14px; font-size: 13px;">
+                <a href="/katalog/{{ a.buch_id }}" style="color: #2c3e50; text-decoration: none;">{{ a.titel }}</a>
+            </td>
+            <td style="padding: 10px 14px; font-size: 13px; color: #555;">{{ a.leiher_vorname }} {{ a.leiher_nachname }}</td>
+            <td style="padding: 10px 14px; font-size: 13px; color: #888;">{{ a.anfragedatum.strftime('%d.%m.%Y') }}</td>
+            <td style="padding: 10px 14px; font-size: 13px;">
+                {% if a.status == 'OFFEN' %}
+                    <span style="color: #e67e22;">offen</span>
+                {% elif a.status == 'BESTAETIGT' %}
+                    <span style="color: #27ae60;">bestätigt</span>
+                {% elif a.status == 'ABGELEHNT' %}
+                    <span style="color: #c0392b;">abgelehnt</span>
+                {% elif a.status == 'STORNIERT' %}
+                    <span style="color: #888;">storniert</span>
+                {% endif %}
+            </td>
+            <td style="padding: 10px 14px; text-align: center; display: flex; gap: 6px; justify-content: center;">
+                {% if a.status == 'OFFEN' %}
+                <a href="/ausleihe/anfrage/{{ a.anfrage_id }}/bestaetigen"
+                   style="background: #27ae60; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 12px;">
+                    Bestätigen
+                </a>
+                <a href="/ausleihe/anfrage/{{ a.anfrage_id }}/ablehnen"
+                   style="background: #c0392b; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 12px;">
+                    Ablehnen
+                </a>
+                {% else %}
+                <a href="/ausleihe/anfrage/{{ a.anfrage_id }}/detail"
+                   style="font-size: 12px; color: #2c3e50; text-decoration: none; border: 1px solid #ddd; padding: 5px 10px; border-radius: 4px;">
+                    Details
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p style="font-size: 13px; color: #888;">Keine Anfragen vorhanden.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Bewertung abgeben – Bookshare{% endblock %}
+
+{% block content %}
+
+<div style="margin-bottom: 8px;">
+    <a href="/bewertungen" style="font-size: 13px; color: #888; text-decoration: none;">← Zurück zu Bewertungen</a>
+</div>
+
+<div style="background: white; border: 1px solid #ddd; border-radius: 6px; padding: 24px; max-width: 560px;">
+    <h2 style="font-size: 17px; margin-bottom: 6px;">Bewertung abgeben</h2>
+    <div style="font-size: 13px; color: #888; margin-bottom: 24px;">
+        {{ ausleihe.titel }} –
+        {{ ausleihe.leiher_vorname }} {{ ausleihe.leiher_nachname }} /
+        {{ ausleihe.verleiher_vorname }} {{ ausleihe.verleiher_nachname }}
+    </div>
+
+    {% if fehler %}
+    <div style="font-size: 13px; color: #c0392b; background: #fdf0ee; border: 1px solid #f5c6c0; border-radius: 4px; padding: 10px 14px; margin-bottom: 16px;">
+        {{ fehler }}
+    </div>
+    {% endif %}
+
+    <form method="POST">
+
+        {% if not bereits_nutzer %}
+        <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #f0f0f0;">
+            <div style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">
+                {% if session.nutzer_id == ausleihe.leiher_id %}
+                    Verleiher bewerten: {{ ausleihe.verleiher_vorname }} {{ ausleihe.verleiher_nachname }}
+                {% else %}
+                    Leiher bewerten: {{ ausleihe.leiher_vorname }} {{ ausleihe.leiher_nachname }}
+                {% endif %}
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label style="font-size: 13px; color: #555; display: block; margin-bottom: 6px;">Sterne</label>
+                <select name="sterne_nutzer" style="font-size: 13px; padding: 6px 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">– keine Bewertung –</option>
+                    <option value="1">1 – sehr schlecht</option>
+                    <option value="2">2 – schlecht</option>
+                    <option value="3">3 – okay</option>
+                    <option value="4">4 – gut</option>
+                    <option value="5">5 – sehr gut</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size: 13px; color: #555; display: block; margin-bottom: 6px;">Kommentar (optional)</label>
+                <textarea name="kommentar_nutzer" rows="3"
+                    style="width: 100%; box-sizing: border-box; font-size: 13px; padding: 8px 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical; font-family: inherit;"></textarea>
+            </div>
+        </div>
+        {% else %}
+        <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #f0f0f0;">
+            <div style="font-size: 13px; color: #27ae60;">Nutzerbewertung bereits abgegeben.</div>
+        </div>
+        {% endif %}
+
+        {% if not bereits_buch %}
+        <div style="margin-bottom: 24px;">
+            <div style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">Buch bewerten: {{ ausleihe.titel }}</div>
+            <div style="margin-bottom: 10px;">
+                <label style="font-size: 13px; color: #555; display: block; margin-bottom: 6px;">Sterne</label>
+                <select name="sterne_buch" style="font-size: 13px; padding: 6px 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">– keine Bewertung –</option>
+                    <option value="1">1 – sehr schlecht</option>
+                    <option value="2">2 – schlecht</option>
+                    <option value="3">3 – okay</option>
+                    <option value="4">4 – gut</option>
+                    <option value="5">5 – sehr gut</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size: 13px; color: #555; display: block; margin-bottom: 6px;">Kommentar (optional)</label>
+                <textarea name="kommentar_buch" rows="3"
+                    style="width: 100%; box-sizing: border-box; font-size: 13px; padding: 8px 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical; font-family: inherit;"></textarea>
+            </div>
+        </div>
+        {% else %}
+        <div style="margin-bottom: 24px;">
+            <div style="font-size: 13px; color: #27ae60;">Buchbewertung bereits abgegeben.</div>
+        </div>
+        {% endif %}
+
+        {% if not bereits_nutzer or not bereits_buch %}
+        <div style="display: flex; gap: 10px;">
+            <button type="submit"
+                style="background: #2c3e50; color: white; border: none; padding: 8px 18px; border-radius: 4px; font-size: 13px; cursor: pointer;">
+                Bewertung speichern
+            </button>
+            <a href="/bewertungen"
+                style="font-size: 13px; color: #888; text-decoration: none; padding: 8px 18px; border: 1px solid #ddd; border-radius: 4px;">
+                Abbrechen
+            </a>
+        </div>
+        {% endif %}
+
+    </form>
+</div>
+
+{% endblock %}

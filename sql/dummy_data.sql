@@ -11,36 +11,36 @@
 -- PART 1: NUTZER (30 Einträge)
 -- =============================================================
 
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Anna',      'Müller',     'anna.mueller@example.de',     'hash_001', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Ben',       'Schmidt',    'ben.schmidt@example.de',      'hash_002', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Clara',     'Schneider',  'clara.schneider@example.de',  'hash_003', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('David',     'Fischer',    'david.fischer@example.de',    'hash_004', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Eva',       'Weber',      'eva.weber@example.de',        'hash_005', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Felix',     'Meyer',      'felix.meyer@example.de',      'hash_006', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Greta',     'Wagner',     'greta.wagner@example.de',     'hash_007', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Hans',      'Becker',     'hans.becker@example.de',      'hash_008', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Ina',       'Schulz',     'ina.schulz@example.de',       'hash_009', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Jan',       'Hoffmann',   'jan.hoffmann@example.de',     'hash_010', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Karin',     'Schäfer',    'karin.schaefer@example.de',   'hash_011', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Lars',      'Koch',       'lars.koch@example.de',        'hash_012', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Maria',     'Bauer',      'maria.bauer@example.de',      'hash_013', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Nico',      'Richter',    'nico.richter@example.de',     'hash_014', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Olga',      'Klein',      'olga.klein@example.de',       'hash_015', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Paul',      'Wolf',       'paul.wolf@example.de',        'hash_016', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Queenie',   'Schröder',   'queenie.schroeder@example.de','hash_017', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Robert',    'Neumann',    'robert.neumann@example.de',   'hash_018', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Sara',      'Schwarz',    'sara.schwarz@example.de',     'hash_019', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Thomas',    'Zimmermann', 'thomas.zimmermann@example.de','hash_020', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Ursula',    'Braun',      'ursula.braun@example.de',     'hash_021', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Viktor',    'Krüger',     'viktor.krueger@example.de',   'hash_022', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Wendy',     'Hartmann',   'wendy.hartmann@example.de',   'hash_023', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Xaver',     'Lange',      'xaver.lange@example.de',      'hash_024', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Yvonne',    'Schmitt',    'yvonne.schmitt@example.de',   'hash_025', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Zacharias', 'Werner',     'zacharias.werner@example.de', 'hash_026', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Alma',      'Peters',     'alma.peters@example.de',      'hash_027', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Bruno',     'Krause',     'bruno.krause@example.de',     'hash_028', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Celine',    'Lehmann',    'celine.lehmann@example.de',   'hash_029', 1);
-INSERT INTO nutzer (vorname, nachname, email, passwort_hash, email_bestaetigt) VALUES ('Dirk',      'Köhler',     'dirk.koehler@example.de',     'hash_030', 1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Anna',      'Müller',     'anna.mueller@example.de',     'hash_001', '0211 123456',  '+49 211 123456',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Ben',       'Schmidt',    'ben.schmidt@example.de',      'hash_002', '030 987654',   '+49 30 987654',   1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Clara',     'Schneider',  'clara.schneider@example.de',  'hash_003', '089 456789',   NULL,              1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('David',     'Fischer',    'david.fischer@example.de',    'hash_004', NULL,           '+49 40 112233',   1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Eva',       'Weber',      'eva.weber@example.de',        'hash_005', '0221 334455',  '+49 221 334455',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Felix',     'Meyer',      'felix.meyer@example.de',      'hash_006', '0711 667788',  NULL,              1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Greta',     'Wagner',     'greta.wagner@example.de',     'hash_007', '0351 998877',  '+49 351 998877',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Hans',      'Becker',     'hans.becker@example.de',      'hash_008', NULL,           '+49 69 445566',   1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Ina',       'Schulz',     'ina.schulz@example.de',       'hash_009', '0931 556677',  '+49 931 556677',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Jan',       'Hoffmann',   'jan.hoffmann@example.de',     'hash_010', '0341 778899',  NULL,              1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Karin',     'Schäfer',    'karin.schaefer@example.de',   'hash_011', NULL,           '+49 511 334455',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Lars',      'Koch',       'lars.koch@example.de',        'hash_012', '040 223344',   '+49 40 223344',   1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Maria',     'Bauer',      'maria.bauer@example.de',      'hash_013', '0201 445566',  '+49 201 445566',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Nico',      'Richter',    'nico.richter@example.de',     'hash_014', '069 667788',   NULL,              1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Olga',      'Klein',      'olga.klein@example.de',       'hash_015', NULL,           '+49 89 778899',   1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Paul',      'Wolf',       'paul.wolf@example.de',        'hash_016', '0231 889900',  '+49 231 889900',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Queenie',   'Schröder',   'queenie.schroeder@example.de','hash_017', '0911 001122',  NULL,              1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Robert',    'Neumann',    'robert.neumann@example.de',   'hash_018', NULL,           '+49 30 112233',   1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Sara',      'Schwarz',    'sara.schwarz@example.de',     'hash_019', '0721 223344',  '+49 721 223344',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Thomas',    'Zimmermann', 'thomas.zimmermann@example.de','hash_020', '0511 334455',  '+49 511 334455',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Ursula',    'Braun',      'ursula.braun@example.de',     'hash_021', '0391 445566',  NULL,              1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Viktor',    'Krüger',     'viktor.krueger@example.de',   'hash_022', '0421 556677',  '+49 421 556677',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Wendy',     'Hartmann',   'wendy.hartmann@example.de',   'hash_023', NULL,           '+49 211 667788',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Xaver',     'Lange',      'xaver.lange@example.de',      'hash_024', '0681 778899',  '+49 681 778899',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Yvonne',    'Schmitt',    'yvonne.schmitt@example.de',   'hash_025', '0761 889900',  NULL,              1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Zacharias', 'Werner',     'zacharias.werner@example.de', 'hash_026', '0821 990011',  '+49 821 990011',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Alma',      'Peters',     'alma.peters@example.de',      'hash_027', '0471 112233',  '+49 471 112233',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Bruno',     'Krause',     'bruno.krause@example.de',     'hash_028', NULL,           '+49 531 223344',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Celine',    'Lehmann',    'celine.lehmann@example.de',   'hash_029', '0551 334455',  '+49 551 334455',  1);
+INSERT INTO nutzer (vorname, nachname, email, passwort_hash, telefon, whatsapp, email_bestaetigt) VALUES ('Dirk',      'Köhler',     'dirk.koehler@example.de',     'hash_030', '02133 445566', '+49 2133 445566', 1);
 
 COMMIT;
 
@@ -223,7 +223,7 @@ INSERT INTO autor (vorname, nachname, land) VALUES ('Victor',      'Hugo',      
 INSERT INTO autor (vorname, nachname, land) VALUES ('Gustave',     'Flaubert',       'Frankreich');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Marcel',      'Proust',         'Frankreich');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Émile',       'Zola',           'Frankreich');
-INSERT INTO autor (vorname, nachname, land) VALUES ('Stendhal',    '',               'Frankreich');
+INSERT INTO autor (vorname, nachname, land) VALUES ('',    'Stendhal',               'Frankreich');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Franz',       'Kafka',          'Österreich');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Stefan',      'Zweig',          'Österreich');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Arthur',      'Schnitzler',     'Österreich');
@@ -293,7 +293,7 @@ INSERT INTO autor (vorname, nachname, land) VALUES ('Alexandre',   'Dumas',     
 INSERT INTO autor (vorname, nachname, land) VALUES ('Honoré de',   'Balzac',         'Frankreich');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Guy de',      'Maupassant',     'Frankreich');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Jules',       'Verne',          'Frankreich');
-INSERT INTO autor (vorname, nachname, land) VALUES ('Voltaire',    '',               'Frankreich');
+INSERT INTO autor (vorname, nachname, land) VALUES ('',    'Voltaire',               'Frankreich');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Jean-Jacques','Rousseau',       'Schweiz');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Friedrich',   'Dürrenmatt',     'Schweiz');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Max',         'Frisch',         'Schweiz');
@@ -465,8 +465,15 @@ INSERT INTO autor (vorname, nachname, land) VALUES ('Anne',        'Enright',   
 INSERT INTO autor (vorname, nachname, land) VALUES ('Sally',       'Rooney',         'Irland');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Emma',        'Donoghue',       'Irland');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Edna',        'O''Brien',       'Irland');
-INSERT INTO autor (vorname, nachname, land) VALUES ('William Trevor','',             'Irland');
+INSERT INTO autor (vorname, nachname, land) VALUES ('William',     'Trevor',         'Irland');
 INSERT INTO autor (vorname, nachname, land) VALUES ('Flann',       'O''Brien',       'Irland');
+INSERT INTO autor (vorname, nachname, land) VALUES ('David',        'Mitchell',      'Großbritannien');
+INSERT INTO autor (vorname, nachname, land) VALUES ('John',         'le Carré',      'Großbritannien');
+INSERT INTO autor (vorname, nachname, land) VALUES ('Ian',          'Fleming',       'Großbritannien');
+INSERT INTO autor (vorname, nachname, land) VALUES ('Mario',        'Puzo',          'USA');
+INSERT INTO autor (vorname, nachname, land) VALUES ('William Peter','Blatty',        'USA');
+INSERT INTO autor (vorname, nachname, land) VALUES ('Michael',      'Crichton',      'USA');
+INSERT INTO autor (vorname, nachname, land) VALUES ('Delia',        'Owens',         'USA');
 
 COMMIT;
 
@@ -1011,9 +1018,7 @@ INSERT INTO buch_autor VALUES (100,102);
 
 -- Bücher 101-200 -> Autoren 1-100 (reuse)
 INSERT INTO buch_autor VALUES (101,8);   INSERT INTO buch_autor VALUES (102,8);   INSERT INTO buch_autor VALUES (103,73);
-INSERT INTO buch_autor VALUES (104,252); -- Bradbury (autor_id 252 = Ray Bradbury)
 INSERT INTO buch_autor VALUES (104,252);
--- Vereinfachung: ab buch 104 direkte Zuordnung ohne Kollisionen
 INSERT INTO buch_autor VALUES (105,103); INSERT INTO buch_autor VALUES (106,104); INSERT INTO buch_autor VALUES (107,104);
 INSERT INTO buch_autor VALUES (108,104); INSERT INTO buch_autor VALUES (109,105); INSERT INTO buch_autor VALUES (110,105);
 INSERT INTO buch_autor VALUES (111,106); INSERT INTO buch_autor VALUES (112,107); INSERT INTO buch_autor VALUES (113,108);
@@ -1077,11 +1082,11 @@ INSERT INTO buch_autor VALUES (276,266); INSERT INTO buch_autor VALUES (277,267)
 INSERT INTO buch_autor VALUES (279,269); INSERT INTO buch_autor VALUES (280,270); INSERT INTO buch_autor VALUES (281,271);
 INSERT INTO buch_autor VALUES (282,272); INSERT INTO buch_autor VALUES (283,273); INSERT INTO buch_autor VALUES (284,274);
 INSERT INTO buch_autor VALUES (285,275); INSERT INTO buch_autor VALUES (286,276); INSERT INTO buch_autor VALUES (287,277);
-INSERT INTO buch_autor VALUES (288,278); INSERT INTO buch_autor VALUES (289,279); INSERT INTO buch_autor VALUES (290,280);
-INSERT INTO buch_autor VALUES (291,281); INSERT INTO buch_autor VALUES (292,282); INSERT INTO buch_autor VALUES (293,283);
-INSERT INTO buch_autor VALUES (294,284); INSERT INTO buch_autor VALUES (295,285); INSERT INTO buch_autor VALUES (296,286);
-INSERT INTO buch_autor VALUES (297,287); INSERT INTO buch_autor VALUES (298,288); INSERT INTO buch_autor VALUES (299,289);
-INSERT INTO buch_autor VALUES (300,290);
+INSERT INTO buch_autor VALUES (288,278); INSERT INTO buch_autor VALUES (289,279); INSERT INTO buch_autor VALUES (290,279);
+INSERT INTO buch_autor VALUES (291,280); INSERT INTO buch_autor VALUES (292,280); INSERT INTO buch_autor VALUES (293,280);
+INSERT INTO buch_autor VALUES (294,281); INSERT INTO buch_autor VALUES (295,282); INSERT INTO buch_autor VALUES (296,283);
+INSERT INTO buch_autor VALUES (297,284); INSERT INTO buch_autor VALUES (298,284); INSERT INTO buch_autor VALUES (299,284);
+INSERT INTO buch_autor VALUES (300,284);
 
 -- Bücher 301-400 -> Autoren ab 58 (Schiller, Goethe etc.) reuse
 INSERT INTO buch_autor VALUES (301,62);  INSERT INTO buch_autor VALUES (302,63);  INSERT INTO buch_autor VALUES (303,62);

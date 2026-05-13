@@ -38,6 +38,8 @@ BEGIN EXECUTE IMMEDIATE 'DROP TABLE adresse CASCADE CONSTRAINTS'; EXCEPTION WHEN
 /
 BEGIN EXECUTE IMMEDIATE 'DROP TABLE nutzer CASCADE CONSTRAINTS'; EXCEPTION WHEN OTHERS THEN NULL; END;
 /
+BEGIN EXECUTE IMMEDIATE 'DROP TABLE anfrage_nachricht CASCADE CONSTRAINTS'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
 
 -- Sequences droppen
 BEGIN EXECUTE IMMEDIATE 'DROP SEQUENCE seq_nutzer'; EXCEPTION WHEN OTHERS THEN NULL; END;
@@ -64,7 +66,8 @@ BEGIN EXECUTE IMMEDIATE 'DROP SEQUENCE seq_bewertung'; EXCEPTION WHEN OTHERS THE
 /
 BEGIN EXECUTE IMMEDIATE 'DROP SEQUENCE seq_duplikat_meldung'; EXCEPTION WHEN OTHERS THEN NULL; END;
 /
-
+BEGIN EXECUTE IMMEDIATE 'DROP SEQUENCE seq_anfrage_nachricht'; EXCEPTION WHEN OTHERS THEN NULL; END;
+/
 
 -- =============================================================
 -- PART 2: SEQUENCES
@@ -82,6 +85,7 @@ CREATE SEQUENCE seq_ausleihe         START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_rueckgabe        START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_bewertung        START WITH 1 INCREMENT BY 1 NOCACHE;
 CREATE SEQUENCE seq_duplikat_meldung START WITH 1 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_anfrage_nachricht START WITH 1 INCREMENT BY 1 NOCACHE;
 
 
 -- =============================================================
@@ -98,6 +102,9 @@ CREATE TABLE nutzer (
     nachname            VARCHAR2(100)   NOT NULL,
     email               VARCHAR2(255)   NOT NULL UNIQUE,
     passwort_hash       VARCHAR2(255)   NOT NULL,
+    telefon             VARCHAR2(50),
+    whatsapp            VARCHAR2(50),
+    email_token         VARCHAR2(100),
     email_bestaetigt    NUMBER(1)       DEFAULT 0 NOT NULL CHECK (email_bestaetigt IN (0,1)),
     suspended           NUMBER(1)       DEFAULT 0 NOT NULL CHECK (suspended IN (0,1)),
     deleted             NUMBER(1)       DEFAULT 0 NOT NULL CHECK (deleted IN (0,1)),
@@ -150,7 +157,7 @@ CREATE TABLE nutzer_rolle (
 -- -------------------------------------------------------------
 -- AUTOR
 -- Verfasser eines Buches
--- land und beschreibung zur Disambiguierung gleichnamiger Autoren
+-- land und beschreibung zur Unterscheidung gleichnamiger Autoren
 -- -------------------------------------------------------------
 CREATE TABLE autor (
     autor_id        NUMBER          DEFAULT seq_autor.NEXTVAL PRIMARY KEY,
@@ -171,7 +178,7 @@ CREATE TABLE genre (
 
 -- -------------------------------------------------------------
 -- BUCH
--- Abstrakte Buchbeschreibung (Katalogeintrag)
+-- Metadaten eines Buches; physische Exemplare in separater Tabelle
 -- -------------------------------------------------------------
 CREATE TABLE buch (
     buch_id             NUMBER          DEFAULT seq_buch.NEXTVAL PRIMARY KEY,
@@ -215,7 +222,6 @@ CREATE TABLE exemplar (
     zustand                 VARCHAR2(20)    NOT NULL CHECK (zustand IN ('NEU','GUT','AKZEPTABEL','SCHLECHT')),
     bemerkung               VARCHAR2(1000),
     gesperrt                NUMBER(1)       DEFAULT 0 NOT NULL CHECK (gesperrt IN (0,1)),
-    gesperrt_von_admin      NUMBER(1)       DEFAULT 0 NOT NULL CHECK (gesperrt_von_admin IN (0,1)),
     postversand_moeglich    NUMBER(1)       DEFAULT 0 NOT NULL CHECK (postversand_moeglich IN (0,1)),
     max_leihdauer_tage      NUMBER(3),
     created_at              DATE            DEFAULT SYSDATE NOT NULL
@@ -248,7 +254,10 @@ CREATE TABLE ausleihe (
     ausleihdatum                    DATE            DEFAULT SYSDATE NOT NULL,
     geplantes_rueckgabedatum        DATE            NOT NULL,
     tatsaechliches_rueckgabedatum   DATE,
-    zustand_bei_uebergabe           VARCHAR2(20)    NOT NULL CHECK (zustand_bei_uebergabe IN ('NEU','GUT','AKZEPTABEL','SCHLECHT'))
+    zustand_bei_uebergabe           VARCHAR2(20)    NOT NULL CHECK (zustand_bei_uebergabe IN ('NEU','GUT','AKZEPTABEL','SCHLECHT')),
+    status                          VARCHAR2(20)    DEFAULT 'LAUFEND' NOT NULL CHECK (status IN ('LAUFEND','UEBERGEBEN','ABGESCHLOSSEN','ABGEBROCHEN')),
+    abbrechender_benutzer           NUMBER          REFERENCES nutzer(nutzer_id),
+    abbruchgrund                    VARCHAR2(500)
 );
 
 -- -------------------------------------------------------------
@@ -301,6 +310,20 @@ CREATE TABLE duplikat_meldung (
     bearbeiter_id       NUMBER          REFERENCES nutzer(nutzer_id),
     meldedatum          DATE            DEFAULT SYSDATE NOT NULL,
     bearbeitungsdatum   DATE
+);
+
+-- -------------------------------------------------------------
+-- ANFRAGE_NACHRICHT
+-- Nachrichten zwischen Leiher und Verleiher im Kontext
+-- einer Ausleihanfrage; bildet einen Mini-Chat ab
+-- -------------------------------------------------------------
+CREATE TABLE anfrage_nachricht (
+    nachricht_id    NUMBER          DEFAULT seq_anfrage_nachricht.NEXTVAL PRIMARY KEY,
+    anfrage_id      NUMBER          NOT NULL REFERENCES ausleihanfrage(anfrage_id),
+    sender_id       NUMBER          NOT NULL REFERENCES nutzer(nutzer_id),
+    inhalt          VARCHAR2(2000)  NOT NULL,
+    gesendet_am     DATE            DEFAULT SYSDATE NOT NULL,
+    gelesen         NUMBER(1)       DEFAULT 0 NOT NULL CHECK (gelesen IN (0,1))
 );
 
 COMMIT;

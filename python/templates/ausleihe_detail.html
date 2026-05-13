@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Anfrage-Details – Bookshare{% endblock %}
+
+{% block content %}
+
+<div style="margin-bottom: 8px;">
+    <a href="/ausleihe/meine" style="font-size: 13px; color: #888; text-decoration: none;">← Zurück zu meinen Ausleihen</a>
+</div>
+
+<div style="display: flex; gap: 24px; align-items: flex-start;">
+
+    <!-- Linke Spalte: Anfrage-Details -->
+    <div style="background: white; border: 1px solid #ddd; border-radius: 6px; padding: 24px; flex: 0 0 340px;">
+        <h2 style="font-size: 17px; margin-bottom: 20px;">Anfrage-Details</h2>
+
+        <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0;">
+            <div style="font-size: 12px; color: #aaa; margin-bottom: 4px;">Buch</div>
+            <div style="font-size: 13px;">
+                <a href="/katalog/{{ anfrage.buch_id }}" style="color: #2c3e50; text-decoration: none;">{{ anfrage.titel }}</a>
+            </div>
+            <div style="font-size: 12px; color: #888; margin-top: 2px;">Zustand: {{ anfrage.zustand }}</div>
+        </div>
+
+        <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0; display: flex; gap: 24px;">
+            <div>
+                <div style="font-size: 12px; color: #aaa; margin-bottom: 4px;">Ausleihende</div>
+                <div style="font-size: 13px;">{{ anfrage.leiher_vorname }} {{ anfrage.leiher_nachname }}</div>
+            </div>
+            <div>
+                <div style="font-size: 12px; color: #aaa; margin-bottom: 4px;">Verleihende</div>
+                <div style="font-size: 13px;">{{ anfrage.verleiher_vorname }} {{ anfrage.verleiher_nachname }}</div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0;">
+            <div style="font-size: 12px; color: #aaa; margin-bottom: 4px;">Abholort</div>
+            {% if anfrage.strasse %}
+            <div style="font-size: 13px;">{{ anfrage.strasse }} {{ anfrage.hausnummer }}, {{ anfrage.plz }} {{ anfrage.stadt }}</div>
+            {% else %}
+            <div style="font-size: 13px; color: #888;">Kein Abholort hinterlegt</div>
+            {% endif %}
+            <div style="font-size: 12px; margin-top: 6px;">
+                Postversand:
+                {% if anfrage.postversand_moeglich %}
+                    <span style="color: #27ae60;">möglich</span>
+                {% else %}
+                    <span style="color: #888;">nicht möglich</span>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if anfrage.nachricht %}
+        <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0;">
+            <div style="font-size: 12px; color: #aaa; margin-bottom: 4px;">Anfangsnachricht</div>
+            <div style="font-size: 13px; color: #555;">{{ anfrage.nachricht }}</div>
+        </div>
+        {% endif %}
+
+        <div>
+            <div style="font-size: 12px; color: #aaa; margin-bottom: 4px;">Status Anfrage</div>
+            <div style="font-size: 13px; margin-bottom: 12px;">
+                {% if anfrage.status == 'OFFEN' %}
+                    <span style="color: #e67e22;">offen</span>
+                {% elif anfrage.status == 'BESTAETIGT' %}
+                    <span style="color: #27ae60;">bestätigt</span>
+                {% elif anfrage.status == 'ABGELEHNT' %}
+                    <span style="color: #c0392b;">abgelehnt</span>
+                {% elif anfrage.status == 'STORNIERT' %}
+                    <span style="color: #888;">storniert</span>
+                {% endif %}
+            </div>
+            {% if ausleihe %}
+            <div style="font-size: 12px; color: #aaa; margin-bottom: 4px;">Status Ausleihe</div>
+            <div style="font-size: 13px; margin-bottom: 12px;">
+                {% if ausleihe.status == 'LAUFEND' %}
+                    <span style="color: #e67e22;">laufend</span>
+                {% elif ausleihe.status == 'UEBERGEBEN' %}
+                    <span style="color: #2980b9;">übergeben</span>
+                {% elif ausleihe.status == 'ABGESCHLOSSEN' %}
+                    <span style="color: #27ae60;">abgeschlossen</span>
+                {% elif ausleihe.status == 'ABGEBROCHEN' %}
+                    <span style="color: #c0392b;">abgebrochen</span>
+                {% endif %}
+            </div>
+            <div style="font-size: 12px; color: #aaa; margin-bottom: 4px;">Ausleihdatum</div>
+            <div style="font-size: 13px; margin-bottom: 12px;">{{ ausleihe.ausleihdatum.strftime('%d.%m.%Y') }}</div>
+            <div style="font-size: 12px; color: #aaa; margin-bottom: 4px;">Geplante Rückgabe</div>
+            <div style="font-size: 13px; margin-bottom: 16px;">{{ ausleihe.geplantes_rueckgabedatum.strftime('%d.%m.%Y') }}</div>
+            {% if ausleihe.tatsaechliches_rueckgabedatum %}
+            <div style="font-size: 12px; color: #aaa; margin-bottom: 4px;">Tatsächliche Rückgabe</div>
+            <div style="font-size: 13px; margin-bottom: 16px;">{{ ausleihe.tatsaechliches_rueckgabedatum.strftime('%d.%m.%Y') }}</div>
+            {% endif %}
+            {% if ausleihe.status == 'LAUFEND' and anfrage.verleiher_id == session.nutzer_id %}
+            <a href="/ausleihe/{{ ausleihe.ausleihe_id }}/uebergeben"
+               style="display: inline-block; background: #2980b9; color: white; padding: 7px 14px; border-radius: 4px; text-decoration: none; font-size: 13px;">
+                Übergabe bestätigen
+            </a>
+            {% elif ausleihe.status == 'UEBERGEBEN' and anfrage.leiher_id == session.nutzer_id %}
+            <a href="/ausleihe/{{ ausleihe.ausleihe_id }}/zurueckgeben"
+               style="display: inline-block; background: #27ae60; color: white; padding: 7px 14px; border-radius: 4px; text-decoration: none; font-size: 13px;">
+                Rückgabe bestätigen
+            </a>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Rechte Spalte: Chat -->
+    <div style="flex: 1; background: white; border: 1px solid #ddd; border-radius: 6px; padding: 24px; display: flex; flex-direction: column;">
+        <h2 style="font-size: 17px; margin-bottom: 20px;">Nachrichten</h2>
+
+        <!-- Nachrichtenverlauf -->
+        <div style="flex: 1; margin-bottom: 16px; min-height: 200px;">
+            {% if nachrichten %}
+                {% for n in nachrichten %}
+                {% set ist_ich = (n.sender_id == session.nutzer_id) %}
+                <div style="margin-bottom: 12px; display: flex; flex-direction: column; align-items: {{ 'flex-end' if ist_ich else 'flex-start' }};">
+                    <div style="font-size: 11px; color: #aaa; margin-bottom: 3px;">
+                        {{ n.vorname }} {{ n.nachname }} – {{ n.gesendet_am.strftime('%d.%m.%Y %H:%M') }}
+                    </div>
+                    <div style="
+                        font-size: 13px;
+                        padding: 8px 12px;
+                        border-radius: 6px;
+                        max-width: 80%;
+                        background: {{ '#2c3e50' if ist_ich else '#f0f0f0' }};
+                        color: {{ 'white' if ist_ich else '#333' }};
+                    ">{{ n.inhalt }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="font-size: 13px; color: #aaa;">Noch keine Nachrichten.</p>
+            {% endif %}
+        </div>
+
+        <!-- Eingabe -->
+        <form method="POST" action="/ausleihe/anfrage/{{ anfrage.anfrage_id }}/nachricht">
+            <div style="display: flex; gap: 8px;">
+                <input type="text" name="inhalt" placeholder="Nachricht schreiben..."
+                    style="flex: 1; font-size: 13px; padding: 8px 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit;">
+                <button type="submit"
+                    style="background: #2c3e50; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-size: 13px; cursor: pointer;">
+                    Senden
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
