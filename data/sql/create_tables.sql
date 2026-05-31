@@ -71,21 +71,22 @@ BEGIN EXECUTE IMMEDIATE 'DROP SEQUENCE seq_anfrage_nachricht'; EXCEPTION WHEN OT
 
 -- =============================================================
 -- PART 2: SEQUENCES
+-- Startwerte auf 1000 gesetzt, damit Testdaten von 1-999 Platz haben
 -- =============================================================
 
-CREATE SEQUENCE seq_nutzer           START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_adresse          START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_rolle            START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_buch             START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_autor            START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_genre            START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_exemplar         START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_ausleihanfrage   START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_ausleihe         START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_rueckgabe        START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_bewertung        START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_duplikat_meldung START WITH 1 INCREMENT BY 1 NOCACHE;
-CREATE SEQUENCE seq_anfrage_nachricht START WITH 1 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_nutzer START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_adresse START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_rolle START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_buch START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_autor START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_genre START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_exemplar START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_ausleihanfrage START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_ausleihe START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_rueckgabe START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_bewertung START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_duplikat_meldung START WITH 1000 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE seq_anfrage_nachricht START WITH 1000 INCREMENT BY 1 NOCACHE;
 
 
 -- =============================================================
@@ -105,9 +106,9 @@ CREATE TABLE nutzer (
     telefon             VARCHAR2(50),
     whatsapp            VARCHAR2(50),
     email_token         VARCHAR2(100),
-    email_bestaetigt    NUMBER(1)       DEFAULT 0 NOT NULL CHECK (email_bestaetigt IN (0,1)),
-    suspended           NUMBER(1)       DEFAULT 0 NOT NULL CHECK (suspended IN (0,1)),
-    deleted             NUMBER(1)       DEFAULT 0 NOT NULL CHECK (deleted IN (0,1)),
+    email_bestaetigt    NUMBER(1)       DEFAULT 0 NOT NULL,
+    suspended           NUMBER(1)       DEFAULT 0 NOT NULL,
+    deleted             NUMBER(1)       DEFAULT 0 NOT NULL,
     created_at          DATE            DEFAULT SYSDATE NOT NULL,
     last_login          DATE,
     profilbild          BLOB
