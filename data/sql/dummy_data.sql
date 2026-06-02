@@ -1915,3 +1915,100 @@ INSERT INTO duplikat_meldung (meldung_id, melder_id, buch_id_original, buch_id_d
 INSERT INTO duplikat_meldung (meldung_id, melder_id, buch_id_original, buch_id_duplikat, status, bearbeiter_id, meldedatum, bearbeitungsdatum) VALUES (1008,  6, 150, 298, 'BEARBEITET', 30, DATE '2026-04-14', DATE '2026-04-16');
 INSERT INTO duplikat_meldung (meldung_id, melder_id, buch_id_original, buch_id_duplikat, status, bearbeiter_id, meldedatum, bearbeitungsdatum) VALUES (1009, 11,  77,  88, 'OFFEN',     NULL, DATE '2026-05-20', NULL);
 COMMIT;
+
+-- =============================================================
+-- 12. AUSLEIHANFRAGEN
+-- =============================================================
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2000,  5,  3,  1, DATE '2026-01-10', 'BESTAETIGT',  'Hallo, ist das Buch noch verfügbar?');
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2001, 12,  5,  3, DATE '2026-01-15', 'ABGELEHNT',   'Würde das Buch gerne ausleihen.');
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2002, 20,  7,  6, DATE '2026-01-22', 'BESTAETIGT',  NULL);
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2003, 27,  9,  8, DATE '2026-02-01', 'BESTAETIGT',  'Kann ich es auch per Post bekommen?');
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2004, 35, 12, 11, DATE '2026-02-05', 'ABGELEHNT',   NULL);
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2005, 41, 14, 13, DATE '2026-02-10', 'BESTAETIGT',  'Sehr gerne!');
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2006, 47, 17, 15, DATE '2026-02-18', 'BESTAETIGT',  NULL);
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2007, 60,  1, 19, DATE '2026-03-01', 'STORNIERT',   'Ich brauch es doch nicht mehr.');
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2008, 69,  4, 22, DATE '2026-03-08', 'BESTAETIGT',  NULL);
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2009, 72,  6, 23, DATE '2026-03-15', 'OFFEN',       'Wäre das möglich?');
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2010, 76, 10, 25, DATE '2026-03-20', 'OFFEN',       NULL);
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2011, 84,  2, 27, DATE '2026-04-02', 'BESTAETIGT',  'Danke im Voraus!');
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2012, 92, 11,  8, DATE '2026-04-10', 'OFFEN',       NULL);
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2013,100, 13, 16, DATE '2026-04-18', 'BESTAETIGT',  'Freue mich drauf.');
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2014,109, 18, 25, DATE '2026-05-05', 'OFFEN',       NULL);
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2015, 5,  8, 1, DATE '2026-02-15', 'BESTAETIGT', NULL);
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2016, 5, 12, 1, DATE '2026-04-01', 'BESTAETIGT', NULL);
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2017, 47, 20, 15, DATE '2026-01-05', 'BESTAETIGT', NULL);
+INSERT INTO ausleihanfrage (anfrage_id, exemplar_id, leiher_id, verleiher_id, anfragedatum, status, nachricht) VALUES (2018, 60, 22, 19, DATE '2026-01-08', 'BESTAETIGT', NULL);
+COMMIT;
+
+-- =============================================================
+-- 13. AUSLEIHEN
+-- =============================================================
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3000, 2000, DATE '2026-01-12', DATE '2026-02-12', DATE '2026-02-10', 'GUT',        'ABGESCHLOSSEN', NULL, NULL);
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3001, 2002, DATE '2026-01-24', DATE '2026-02-24', DATE '2026-02-22', 'GUT',        'ABGESCHLOSSEN', NULL, NULL);
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3002, 2003, DATE '2026-02-03', DATE '2026-03-03', DATE '2026-03-06', 'NEU',        'ABGESCHLOSSEN', NULL, NULL);
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3003, 2005, DATE '2026-02-12', DATE '2026-03-12', DATE '2026-03-10', 'AKZEPTABEL', 'ABGESCHLOSSEN', NULL, NULL);
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3004, 2006, DATE '2026-02-20', DATE '2026-03-20', NULL,                'GUT',        'ABGEBROCHEN',   17, 'Buch ging verloren.');
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3005, 2008, DATE '2026-03-10', DATE '2026-04-10', DATE '2026-04-08', 'GUT',        'ABGESCHLOSSEN', NULL, NULL);
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3006, 2011, DATE '2026-04-05', DATE '2026-05-05', DATE '2026-05-03', 'NEU',        'ABGESCHLOSSEN', NULL, NULL);
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3007, 2013, DATE '2026-04-20', DATE '2026-05-20', NULL,                'GUT',        'LAUFEND',       NULL, NULL);
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3008, 2015, DATE '2026-02-17', DATE '2026-03-17', DATE '2026-03-15', 'GUT', 'ABGESCHLOSSEN', NULL, NULL);
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3009, 2016, DATE '2026-04-03', DATE '2026-05-03', DATE '2026-04-28', 'GUT', 'ABGESCHLOSSEN', NULL, NULL);
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3010, 2017, DATE '2026-01-07', DATE '2026-02-07', DATE '2026-02-05', 'GUT', 'ABGESCHLOSSEN', NULL, NULL);
+INSERT INTO ausleihe (ausleihe_id, anfrage_id, ausleihdatum, geplantes_rueckgabedatum, tatsaechliches_rueckgabedatum, zustand_bei_uebergabe, status, abbrechender_benutzer, abbruchgrund) VALUES (3011, 2018, DATE '2026-01-10', DATE '2026-02-10', DATE '2026-02-08', 'GUT', 'ABGESCHLOSSEN', NULL, NULL);
+
+COMMIT;
+
+-- =============================================================
+-- 14. RUECKGABEN
+-- =============================================================
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4000, 3000,   5, DATE '2026-02-10', 'GUT');
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4001, 3001,  20, DATE '2026-02-22', 'GUT');
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4002, 3002,  27, DATE '2026-03-06', 'NEU');
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4003, 3003,  41, DATE '2026-03-10', 'AKZEPTABEL');
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4004, 3005,  69, DATE '2026-04-08', 'GUT');
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4005, 3006,  84, DATE '2026-05-03', 'GUT');
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4006, 3008, 5, DATE '2026-03-15', 'GUT');
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4007, 3009, 5, DATE '2026-04-28', 'AKZEPTABEL');
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4008, 3003, 41, DATE '2026-03-10', 'AKZEPTABEL');
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4009, 3004, 47, DATE '2026-03-01', 'GUT');
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4010, 3010, 47, DATE '2026-02-05', 'GUT');
+INSERT INTO rueckgabe (rueckgabe_id, ausleihe_id, exemplar_id, rueckgabedatum, zustand_bei_rueckgabe) VALUES (4011, 3011, 60, DATE '2026-02-08', 'GUT');
+
+COMMIT;
+
+-- =============================================================
+-- 15. ANFRAGE_NACHRICHTEN
+-- =============================================================
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5000, 2000,  3, 'Hallo, ist das Buch noch verfügbar?',      DATE '2026-01-10', 1);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5001, 2000,  1, 'Ja, gerne! Wann passt dir die Übergabe?',  DATE '2026-01-11', 1);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5002, 2000,  3, 'Am Samstag wäre super.',                   DATE '2026-01-11', 1);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5003, 2003,  9, 'Kann ich es auch per Post bekommen?',      DATE '2026-02-01', 1);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5004, 2003,  8, 'Klar, ich schicke es morgen raus.',        DATE '2026-02-02', 1);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5005, 2009,  6, 'Wäre das möglich?',                        DATE '2026-03-15', 1);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5006, 2009, 23, 'Ja, melde dich nochmal Anfang April.',     DATE '2026-03-16', 1);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5007, 2010, 10, 'Ich hätte Interesse.',                     DATE '2026-03-20', 0);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5008, 2011,  2, 'Danke im Voraus!',                         DATE '2026-04-02', 1);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5009, 2011, 27, 'Sehr gerne, bis bald!',                    DATE '2026-04-03', 1);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5010, 2012, 11, 'Ist das Buch in gutem Zustand?',           DATE '2026-04-10', 1);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5011, 2012,  8, 'Ja, kaum benutzt.',                        DATE '2026-04-10', 0);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5012, 2013, 13, 'Freue mich drauf.',                        DATE '2026-04-18', 1);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5013, 2014, 18, 'Wann wäre eine Übergabe möglich?',         DATE '2026-05-05', 0);
+INSERT INTO anfrage_nachricht (nachricht_id, anfrage_id, sender_id, inhalt, gesendet_am, gelesen) VALUES (5014, 2014, 25, 'Am Wochenende hätte ich Zeit.',            DATE '2026-05-06', 0);
+COMMIT;
+
+-- =============================================================
+-- 16. BEWERTUNGEN
+-- =============================================================
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6000, 3000,  3, NULL,  5, 5, 'Tolles Buch, sehr empfehlenswert.',          DATE '2026-02-11');
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6001, 3000,  3,    1, NULL, 5, 'Sehr unkomplizierte Übergabe.',              DATE '2026-02-11');
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6002, 3001,  7, NULL, 20, 4, 'Gutes Buch, etwas langatmig.',               DATE '2026-02-23');
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6003, 3001,  7,    6, NULL, 4, 'Pünktliche Rückgabe, alles prima.',          DATE '2026-02-23');
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6004, 3002,  9, NULL, 27, 3, 'Interessant, aber nicht mein Genre.',        DATE '2026-03-07');
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6005, 3002,  8,    9, NULL, 5, 'Buch kam in einwandfreiem Zustand zurück.', DATE '2026-03-07');
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6006, 3003, 14, NULL, 41, 4, 'Spannend, gut erhalten.',                    DATE '2026-03-11');
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6007, 3003, 13,   14, NULL, 3, 'Rückgabe etwas verspätet.',                  DATE '2026-03-11');
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6008, 3005,  4, NULL, 69, 5, 'Absolut lesenswert.',                        DATE '2026-04-09');
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6009, 3006,  2, NULL, 84, 4, 'Gut geschrieben, gerne wieder.',             DATE '2026-05-04');
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6010, 3008,  8, NULL, 5, 4, 'Gutes Buch, etwas abgenutzt.',     DATE '2026-03-16');
+INSERT INTO bewertung (bewertung_id, ausleihe_id, bewerter_id, bewerteter_nutzer_id, buch_id, sterne, kommentar, datum) VALUES (6011, 3009, 12, NULL, 5, 3, 'Inhalt ok, Cover hat gelitten.',   DATE '2026-04-29');
+COMMIT;
