@@ -1,3 +1,5 @@
+-- Queries aus Phase 2
+
 -- Buch
 SELECT	b.titel,
 	a.vorname || ' ' || a.nachname	AS autor,
@@ -177,3 +179,98 @@ JOIN   nutzer n ON n.nutzer_id = nr.nutzer_id
 GROUP BY n.vorname, n.nachname
 HAVING COUNT(nr.rolle_id) > 1
 ORDER BY anzahl_rollen DESC;
+
+
+-- Zusätzliche Queries aus Phase 3
+
+-- Exemplare ohne Anfrage
+SELECT  b.titel,
+        n.vorname || ' ' || n.nachname AS besitzer
+FROM    exemplar e
+JOIN    buch b   ON b.buch_id   = e.buch_id
+JOIN    nutzer n ON n.nutzer_id = e.besitzer_id
+WHERE   NOT EXISTS (
+            SELECT 1
+            FROM   ausleihanfrage a
+            WHERE  a.exemplar_id = e.exemplar_id
+        )
+ORDER BY b.titel;
+
+-- Anfrage seit sieben Tagen ohne Antwort des Verleihers
+SELECT  an.anfrage_id,
+        an.anfragedatum,
+        l.vorname || ' ' || l.nachname AS leiher,
+        v.vorname || ' ' || v.nachname AS verleiher,
+        an.nachricht,
+        TRUNC(SYSDATE - an.anfragedatum) AS tage_offen
+FROM    ausleihanfrage an
+JOIN    nutzer l ON l.nutzer_id = an.leiher_id
+JOIN    nutzer v ON v.nutzer_id = an.verleiher_id
+WHERE   SYSDATE - an.anfragedatum > 7
+AND     NOT EXISTS (
+            SELECT 1
+            FROM   anfrage_nachricht m
+            WHERE  m.anfrage_id = an.anfrage_id
+            AND    m.sender_id  = an.verleiher_id
+        )
+ORDER BY tage_offen DESC;
+
+-- Mittlere Abweichung zwischen tatsächlichem und geplantem Rückgabedatum
+SELECT ROUND(AVG(r.rueckgabedatum - a.geplantes_rueckgabedatum), 1)
+       AS mittlere_abweichung_tage
+FROM   ausleihe a
+JOIN   rueckgabe r ON r.ausleihe_id = a.ausleihe_id;
+
+-- Trigger
+CREATE OR REPLACE TRIGGER rueckgabe_schliesst_ausleihe
+AFTER INSERT ON rueckgabe
+FOR EACH ROW
+BEGIN
+    UPDATE ausleihe
+       SET status = 'ABGESCHLOSSEN',
+           tatsaechliches_rueckgabedatum = :new.rueckgabedatum
+     WHERE ausleihe_id = :new.ausleihe_id;
+END;
+/
+rollback;
+
+-- Modulgrenzen überschreitende View
+CREATE OR REPLACE VIEW v_exemplar_ohne_anfrage AS
+SELECT e.exemplar_id,
+       b.titel,
+       n.vorname,
+       n.nachname
+  FROM exemplar e
+  JOIN buch   b ON b.buch_id = e.buch_id
+  JOIN nutzer n ON n.nutzer_id = e.besitzer_id
+ WHERE NOT EXISTS (
+           SELECT 1
+             FROM ausleihanfrage a
+            WHERE a.exemplar_id = e.exemplar_id
+       );
+
+--View innerhalb eines Moduls
+CREATE OR REPLACE VIEW v_buchliste AS
+SELECT b.titel,
+       a.vorname,
+       a.nachname,
+       g.bezeichnung AS genre,
+       b.sprache,
+       b.erscheinungsjahr
+  FROM buch b
+  JOIN buch_autor ba ON ba.buch_id = b.buch_id
+  JOIN autor      a  ON a.autor_id = ba.autor_id
+  JOIN buch_genre bg ON bg.buch_id = b.buch_id
+  JOIN genre      g  ON g.genre_id = bg.genre_id
+ WHERE ba.autor_id = (SELECT MIN(ba2.autor_id)
+                        FROM buch_autor ba2
+                       WHERE ba2.buch_id = b.buch_id)
+   AND bg.genre_id = (SELECT MIN(bg2.genre_id)
+                        FROM buch_genre bg2
+                       WHERE bg2.buch_id = b.buch_id)
+ ORDER BY b.titel;
+
+-- Indizes
+CREATE INDEX ix_exemplar_buch     ON exemplar  (buch_id);
+CREATE INDEX ix_exemplar_besitzer ON exemplar  (besitzer_id);
+CREATE INDEX ix_bewertung_ausleihe ON bewertung (ausleihe_id);
