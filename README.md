@@ -85,11 +85,13 @@ Die Anwendung erwartet eine laufende Oracle-Instanz. Verbindungsparameter werden
 - Statuswerte als VARCHAR2 mit fester Wertemenge
 - DDL mit vorangestellten DROP-Statements, um die Datenbank während der Entwicklung schnell neu aufzusetzen
 - Vier Bereiche weitgehend getrennt modelliert, spätere Aufteilung in eigene Dienste möglich
+- Keine Trigger oder Stored Procedures, Geschäftslogik bleibt in der Anwendung
+- Keine zusätzlichen Indizes, Primärschlüssel und UNIQUE werden automatisch indiziert, nicht-eindeutige Fremdschlüssel wären Kandidaten mit geringem Nutzen bei dieser Datenmenge
 
 ### Benutzerverwaltung
 - Adresse als eigene Tabelle, mehrere je Nutzer, mit Geokoordinaten und Rechnungs- sowie Standard-Flag
 - email als eindeutiger Login
-- Authentifizierungsdaten im Schema gehalten, theoretisch an einen Identity-Provider auslagerbar
+- passwort_hash als gesalzener Argon2id-Hash, von der Anwendung gebildet, die Datenbank speichert nur das Ergebnis, theoretisch an einen Identity-Provider auslagerbar
 - Soft-Flags suspended und deleted statt physischem Löschen
 - profilbild als BLOB in der Datenbank, statt im Dateisystem (Referenzielle Integrität)
 - Rollen über rolle und nutzer_rolle, ein Nutzer kann mehrere Rollen tragen
@@ -129,3 +131,6 @@ Die Anwendung erwartet eine laufende Oracle-Instanz. Verbindungsparameter werden
 - Ungleiche Verteilung von Adressen und Nutzern ohne Exemplare für realistische Sonderfälle
 - Flask-MVP mit Blueprint-Struktur und oracledb zur Prüfung des Schemas im Zusammenspiel
 - Drei-Phasen-Vorgehen mit Abgabe über GitHub samt README und Installationsanleitung
+
+## Ausblick
+- Historisierung statusführender Tabellen über Flashback Data Archive, ohne Trigger
